@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Boutique Inventory</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><div class="brand">M <span>MAISON<small>BOUTIQUE INVENTORY</small></span></div>
+    <button class="menu-button" onclick="toggleMenu()">☰</button></header>
+
+<div class="layout">
+<nav id="menu">
+<button class="nav active" onclick="showPage('dashboard',this)">⌂ Dashboard</button>
+<button class="nav" onclick="showPage('products',this)">▦ Products</button>
+<button class="nav" onclick="showPage('alerts',this)">! Stock Alerts</button>
+<button class="nav" onclick="showPage('sales',this)">↗ Sales</button>
+<button class="nav" onclick="showPage('reports',this)">▤ Reports</button>
+</nav>
+
+<main>
+<section id="dashboard" class="page">
+<div class="heading"><div><small>YOUR BOUTIQUE AT A GLANCE</small>
+    <h1>Welcome, Manager ✦</h1>
+    <p>Here is your inventory summary.</p></div>
+    <button class="primary" onclick="openProductForm()">+ Add Product</button></div>
+
+
+<div class="cards">
+<div class="card">Total Products<strong id="totalProducts">0</strong></div>
+<div class="card">Units in Stock<strong id="totalUnits">0</strong></div>
+<div class="card">Low Stock Items<strong id="lowItems">0</strong></div>
+<div class="card">Sales Revenue<strong id="revenue">₹0</strong></div>
+</div>
+
+<div class="panel"><h2>Recent Products</h2>
+    <div class="scroll">
+        <table>
+            <thead>
+                <tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th></tr>
+            </thead>
+            <tbody id="recentTable"></tbody>
+        </table></div></div>
+<div class="panel"><h2>Products Needing Attention</h2><div id="dashboardAlerts"></div></div>
+</section>
+
+
+<section id="products" class="page hidden">
+<div class="heading"><div><small>YOUR COLLECTION</small><h1>Product Catalogue</h1><p>Add, update, search and remove products.</p></div><button class="primary" onclick="openProductForm()">+ Add Product</button></div>
+<div class="panel"><div class="filters"><input id="search" placeholder="Search product..." oninput="showProducts()"><select id="categoryFilter" onchange="showProducts()"><option>All</option><option>Clothing</option><option>Ethnic Wear</option><option>Accessories</option><option>Bags</option><option>Footwear</option></select></div>
+<div class="scroll"><table><thead><tr><th>Product</th><th>Category</th><th>Size</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead><tbody id="productTable"></tbody></table></div></div>
+</section>
+
+<section id="alerts" class="page hidden">
+<div class="heading"><div><small>INVENTORY HEALTH</small><h1>Stock Alerts</h1><p>Products with low or zero stock.</p></div></div>
+<div class="cards three"><div class="card">Out of Stock<strong id="outCount">0</strong></div><div class="card">Low Stock<strong id="lowCount">0</strong></div><div class="card">Healthy Stock<strong id="healthyCount">0</strong></div></div>
+<div class="panel"><h2>Products to Restock</h2><div id="alertList"></div></div>
+</section>
+
+<section id="sales" class="page hidden">
+<div class="heading"><div><small>DAILY TRANSACTIONS</small><h1>Sales Management</h1><p>Record sales and update stock.</p></div><button class="primary" onclick="openSaleForm()">+ Record Sale</button></div>
+<div class="cards three"><div class="card">Total Revenue<strong id="salesRevenue">₹0</strong></div><div class="card">Items Sold<strong id="itemsSold">0</strong></div><div class="card">Transactions<strong id="transactions">0</strong></div></div>
+<div class="panel"><h2>Sales History</h2><div class="scroll"><table><thead><tr><th>Sale ID</th><th>Product</th><th>Quantity</th><th>Total</th><th>Date</th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
+</section>
+
+<section id="reports" class="page hidden">
+<div class="heading"><div><small>BUSINESS INSIGHTS</small><h1>Reports</h1><p>A summary of boutique performance.</p></div><button class="primary" onclick="window.print()">Print Report</button></div>
+<div class="cards"><div class="card">Inventory Value<strong id="stockValue">₹0</strong></div><div class="card">Total Products<strong id="reportProducts">0</strong></div><div class="card">Units Sold<strong id="reportSold">0</strong></div><div class="card">Total Revenue<strong id="reportRevenue">₹0</strong></div></div>
+<div class="panel"><h2>Products by Category</h2><div id="categoryReport"></div></div>
+</section>
+</main></div>
+
+<div class="modal hidden" id="productModal"><form class="modal-box" id="productForm">
+<button type="button" class="close" onclick="closeForms()">×</button><small>PRODUCT DETAILS</small><h2 id="formTitle">Add Product</h2>
+<input type="hidden" id="editId">
+<label>Product Name<input id="pName" required></label>
+<label>Category<select id="pCategory" required><option value="">Choose category</option><option>Clothing</option><option>Ethnic Wear</option><option>Accessories</option><option>Bags</option><option>Footwear</option></select></label>
+<div class="two"><label>Size<input id="pSize" required></label><label>Price (₹)<input id="pPrice" type="number" min="1" required></label></div>
+<div class="two"><label>Quantity<input id="pQuantity" type="number" min="0" required></label><label>Low Stock Limit<input id="pLimit" type="number" min="0" value="10" required></label></div>
+<button class="primary wide" type="submit">Save Product</button></form></div>
+
+<div class="modal hidden" id="saleModal"><form class="modal-box" id="saleForm">
+<button type="button" class="close" onclick="closeForms()">×</button><small>NEW TRANSACTION</small><h2>Record a Sale</h2>
+<label>Choose Product<select id="saleProduct" required></select></label>
+<label>Quantity Sold<input id="saleQuantity" type="number" min="1" value="1" required></label>
+<p class="sale-total">Sale Total: <strong id="saleTotal">₹0</strong></p>
+<button class="primary wide" type="submit">Complete Sale</button></form></div>
+<div id="message" class="message"></div>
+<script src="js/script.js"></script>
+</body></html>

@@ -1,0 +1,60 @@
+/* 1. GENERAL DESIGN */
+*{box-sizing:border-box}
+body{margin:0;background:#f8f5ef;color:#38291f;font:14px Arial,sans-serif}
+button,input,select{font:inherit;cursor:pointer}
+header{height:70px;background:#fffefa;border-bottom:1px solid #e9e0d5;display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.brand{display:flex;align-items:center;gap:12px;color:#5c4637;font:bold 22px Georgia}
+.brand span{font:bold 13px Arial;letter-spacing:2px}
+.brand small{display:block;font-size:8px;color:#9b8875}
+.menu-button{display:none;background:none;border:0;font-size:22px;color:#5c4637}
+
+/* 2. SIDEBAR AND CONTENT */
+.layout{display:flex;min-height:calc(100vh - 70px)}
+nav{width:220px;background:#f0e9df;padding:25px 15px;flex-shrink:0}
+.nav{display:block;width:100%;padding:13px;margin-bottom:7px;border:0;border-radius:6px;background:transparent;text-align:left;color:#77685b}
+.nav:hover,.nav.active{background:#5c4637;color:white}
+main{flex:1;max-width:1400px;padding:30px;margin:auto}
+.page{display:block}.hidden{display:none!important}
+.heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}
+.heading small,.modal-box>small{color:#a08b75;font-size:10px;letter-spacing:1.5px;font-weight:bold}
+h1,h2{font-family:Georgia,serif;color:#38291f}
+h1{font-size:30px;margin:8px 0}h2{font-size:19px;margin:0 0 15px}
+.heading p{color:#94877a;margin:5px 0;font-size:12px}
+.primary{background:#5c4637;color:white;border:1px solid #5c4637;border-radius:5px;padding:11px 15px;font-weight:bold}
+.primary:hover{background:#38291f}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.card,.panel{background:#fffefa;border:1px solid #eee7dd;border-radius:8px;padding:18px;margin-bottom:17px}
+.card{color:#94877a;font-size:12px}
+.card strong{display:block;margin-top:12px;font:bold 27px Georgia;color:#5c4637}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}
+th{color:#a08f7e;background:#faf7f2;font-size:10px;text-transform:uppercase}
+th,td{padding:12px 10px;border-bottom:1px solid #f0ebe4}
+td{color:#76685b;font-size:12px}
+.filters{display:flex;gap:10px;margin-bottom:15px}
+.filters input,.filters select,.modal-box input,.modal-box select{padding:10px;border:1px solid #e5dbcf;border-radius:5px;background:white;color:#5c4637}
+.filters input{flex:1}
+.status{padding:5px 8px;border-radius:20px;font-size:10px}
+.in{background:#eaf1e9;color:#54765d}.low{background:#f8efdf;color:#a97832}.out{background:#f8eae7;color:#a95349}
+.action{border:1px solid #e5dbcf;background:#fffefa;color:#72583f;border-radius:4px;padding:5px 8px;margin:2px}
+.delete{color:#a95349}
+
+/* 3. POPUP FORMS */
+.modal{position:fixed;inset:0;background:#2d211bb5;display:flex;justify-content:center;align-items:center;padding:15px}
+.modal-box{background:#fffefa;padding:25px;border-radius:9px;width:100%;max-width:430px;max-height:90vh;overflow:auto;position:relative}
+.modal-box label{display:block;color:#76685b;font-size:12px;margin:12px 0}
+.modal-box input,.modal-box select{display:block;width:100%;margin-top:6px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.close{position:absolute;right:18px;top:12px;border:0;background:none;font-size:25px;color:#80664f}
+.wide{width:100%;margin-top:12px}
+.sale-total{background:#f0e9df;padding:13px;border-radius:5px;display:flex;justify-content:space-between}
+.message{position:fixed;bottom:20px;right:20px;background:#38291f;color:white;padding:12px 18px;border-radius:5px;display:none}
+
+/* 4. MOBILE DESIGN */
+@media(max-width:800px){
+.menu-button{display:block}.layout{display:block}nav{display:none;width:100%}nav.show{display:block}
+main{padding:18px}.cards{grid-template-columns:repeat(2,1fr)}.heading{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:480px){.cards,.cards.three{grid-template-columns:1fr 1fr;gap:8px}.card{padding:13px}.card strong{font-size:22px}.filters{flex-direction:column}.two{grid-template-columns:1fr;gap:0}h1{font-size:25px}}
+@media print{nav,header,button{display:none!important}main{padding:0}.page{display:none!important}#reports{display:block!important}}
